@@ -14,7 +14,6 @@ import (
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/dialect/sqlitedialect"
 	"github.com/uptrace/bun/driver/pgdriver"
-	"github.com/uptrace/bun/driver/sqliteshim"
 	"github.com/uptrace/bun/extra/bunotel"
 )
 
@@ -31,7 +30,7 @@ func initializeDB(connString string) (*bun.DB, error) {
 		}
 		db = bun.NewDB(sqldb, pgdialect.New())
 	} else {
-		sqldb, err := sql.Open(sqliteshim.ShimName, connString)
+		sqldb, err := sql.Open(sqliteDriverName, connString)
 		if err != nil {
 			return nil, err
 		}
